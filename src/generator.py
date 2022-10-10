@@ -8,7 +8,15 @@ class PyCodeGenerator():
 		element = element if element else self.document
 
 		children = [self.generate(elem) for elem in element.children]
+		attrs = (
+			'{'+(
+				','.join(
+					f"{repr(name)}: {value}" 
+					for name, value in element.attrs.items()
+				)
+			)+'}'
+		)
 
 		return \
-			f"{element.tag}({element.data!r}, " \
-				f"[{','.join(children)}], **{element.attrs})"
+			f"{element.tag}({element.data+',' if element.data else ''} " \
+				f"[{','.join(children)}], **{attrs})"

@@ -111,10 +111,7 @@ for i, pycode in enumerate(pycodes):
 	if i == len(pycodes)-1:
 		new_code+=code[end:]
 
+if not new_code: new_code = code
+
 with open('.'.join(argv[1].split('.')[:-1])+".py", 'w') as f:
 	f.write(new_code)
-
-	
-	
-
-

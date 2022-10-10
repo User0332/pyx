@@ -9,7 +9,15 @@ class PYXParser(HTMLParser):
 		super().__init__(convert_charrefs=True)
 
 	def handle_starttag(self, tag: str, attrs: list[str]):
-		dictattrs = {attr[0] : attr[1] for attr in attrs}
+		dictattrs = {}
+		for attr in attrs:
+			if attr[1].startswith('{') and attr[1].endswith('}'):
+				dictattrs[attr[0]] = attr[1].removeprefix('{').removesuffix('}')
+				continue
+		
+			dictattrs[attr[0]] = repr(attr[1])
+
+
 		self.current_tag = tag
 		element = Element(tag, data="", children=None, **dictattrs)
 		
@@ -33,5 +41,9 @@ class PYXParser(HTMLParser):
 			raise ValueError("A tag wasn't closed!")
 
 	def handle_data(self, data):
-		self.current_node.data = data
+		if data.startswith('{') and data.endswith('}'):
+			self.current_node.data = data.removeprefix('{').removesuffix('}')
+			return
+		
+		self.current_node.data = repr(data)
 		
