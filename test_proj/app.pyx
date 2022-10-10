@@ -8,8 +8,9 @@ app = Flask(__name__)
 app.debug = True
 
 def create_index() -> str:
-	style = "color: red"
+	h1style = "color: red"
 	onclick = "alert('button clicked')"
+	pstyle = "display: inline-block;"
 
 	return (
 		<pyx>
@@ -18,8 +19,11 @@ def create_index() -> str:
 				<mystyle></mystyle>
 			</head>
 			<body>
-				<h1 style={style} id="heading">Welcome to my site!</h1>
+				<h1 style={h1style} id="heading">Welcome to my site!</h1>
 				<mybutton onclickjs={onclick}>Click Me!</mybutton>
+				<br></br>
+				<p style={pstyle}>Built using</p>
+				<a href="https://github.com/User0332/pyx">PySite</a>
 			</body>
 		</pyx>
 	).html

@@ -156,6 +156,9 @@ class Element:
 		for attrname, value in self.attrs.items():
 			attrs+=f'{attrname}="{value}" '
 
+		if self.tag == "br":
+			print(self.data)
+
 		return f"<{self.tag} {attrs}>{self.data}{children}</{self.tag}>"
 
 for tag in standard_tags:

@@ -17,6 +17,8 @@ class PyCodeGenerator():
 			)+'}'
 		)
 
+		data = f"data={element.data}"
+
 		return \
-			f"{element.tag}({element.data+',' if element.data else ''} " \
-				f"[{','.join(children)}], **{attrs})"
+			f"{element.tag}({data+',' if element.data else ''} " \
+				f"children=[{','.join(children)}], **{attrs})"
