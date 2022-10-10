@@ -1,0 +1,14 @@
+{
+	"scopeName": "source.cdf",
+	"patterns": [{"include": "#element"}, {"include": "#import"}],
+	"repository": {
+		"element": {
+			"match": "(?!children\b)\b\\w+",
+			"name": "identifier.elementclass"
+		},
+		"import": {
+			"match": "#import",
+			"name": "keyword.import"
+		}
+	}
+}

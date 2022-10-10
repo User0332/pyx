@@ -1,0 +1,17 @@
+{
+	"contributes": {
+	  "languages": [
+		{
+		  "id": "pyx",
+		  "extensions": [".pyx"]
+		}
+	  ],
+	  "grammars": [
+		{
+		  "language": "Python XML",
+		  "scopeName": "source.pyx",
+		  "path": "./syntaxes/cdf.tmGrammar.json"
+		}
+	  ]
+	}
+  }
