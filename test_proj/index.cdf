@@ -1,22 +1,16 @@
-Element(
-	"html",
+html(
 	children=[
-		Element(
-			"head", 
+		head(
 			children=[
-				Element("title", "My Site!")
+				title("My Site!")
 			]
 		),
-		Element(
-			"body",
+		body(
 			children=[
-				Element(
-					"h1", 
-					"Welcome to my site!"
-				),
-				MyButton(
+				h1("Welcome to my site!"),
+				button(
 					"Click Me!", 
-					"alert('button clicked')"
+					onclick="alert('button clicked')"
 				)
 			]
 		)

@@ -1,25 +1,21 @@
-class Element:
-	def __init__(self, tag: str, data: str="", children: list=None, **attrs: str,):
-		self.tag = tag
-		self.data = data
-		self.children = children if children else []
-		self.attrs = attrs
+from . import tags
 
-	@property
-	def html(self) -> str:
-		return str(self)
-
-	def __str__(self):
-		attrs = ""
-		children = '\n'.join(str(child) for child in self.children)
-
-		for attrname, value in self.attrs.items():
-			attrs+=f'{attrname}="{value}" '
-
-		return f"<{self.tag} {attrs}>{self.data}{children}</{self.tag}>"
-
-def read_cdf(filename: str) ->  str:
+def read_cdf(filename: str, **components: type[tags.Element]) -> tags.Element:
 	with open(filename, 'r') as f:
 		code = f.read()
 
-	
+	try:
+		return eval(
+			code,
+			{
+				**components,
+				**{
+					name: element for name, element in tags.__dict__.items() 
+					if name not in ('_', "standard_tags")
+				}
+			}
+		)
+	except BaseException as e:
+		raise ValueError(
+			f"Invalid CDF!\nPerhaps you forgot to include a kwarg to a component definition?\nError: {e}"
+		)
