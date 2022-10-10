@@ -28,8 +28,17 @@ def create_index() -> str:
 		</pyx>
 	).html
 
+@app.route('/home')
+def home():
+	return create_index()
+
 @app.route('/')
 def index():
-	return render_template_string(
-		create_index()
-	)
+	return (
+		<pyx>
+			<script>
+				window.alert('Redirecting you to /home...')
+				window.location.href = '/home'
+			</script>
+		</pyx>
+	).html
