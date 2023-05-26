@@ -1,5 +1,5 @@
 import pysite
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, request
 from pysite.tags import *
 from components.button import mybutton
 from snippets import mystyle
@@ -7,7 +7,17 @@ from snippets import mystyle
 app = Flask(__name__)
 app.debug = True
 
-def create_index() -> str:
+def create_index() -> Element:
+	return (
+		<pyx>
+			<script>
+				window.alert('Redirecting you to /home!')
+				location.href = '/home'
+			</script>
+		</pyx>
+	)
+
+def create_home() -> Element:
 	h1style = "color: red"
 	onclick = "alert('button clicked')"
 	pstyle = "display: inline-block;"
@@ -26,19 +36,12 @@ def create_index() -> str:
 				<a href="https://github.com/User0332/pyx">PySite</a>
 			</body>
 		</pyx>
-	).html
+	)
 
 @app.route('/home')
 def home():
-	return create_index()
+	return create_home().html
 
 @app.route('/')
 def index():
-	return (
-		<pyx>
-			<script>
-				window.alert('Redirecting you to /home...')
-				window.location.href = '/home'
-			</script>
-		</pyx>
-	).html
+	return create_index().html

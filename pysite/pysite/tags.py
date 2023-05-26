@@ -141,7 +141,7 @@ class Element:
 	def __init__(self, tag: str, data: str="", children: list=None, **attrs: str):
 		self.tag = tag
 		self.data = data
-		self.children = children if children else []
+		self.children: list[Element] = children if children else []
 		self.attrs = attrs
 		self.parent: Element = None
 
@@ -155,9 +155,6 @@ class Element:
 
 		for attrname, value in self.attrs.items():
 			attrs+=f'{attrname}="{value}" '
-
-		if self.tag == "br":
-			print(self.data)
 
 		return f"<{self.tag} {attrs}>{self.data}{children}</{self.tag}>"
 

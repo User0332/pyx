@@ -1,3 +1,4 @@
+import os
 from sys import argv
 from typing import Literal, Union
 from generator import PyCodeGenerator
@@ -45,19 +46,28 @@ def strchecker(char: Union[Literal["'"], Literal['"']]) -> int:
 
 obj = enumerate(code)
 for i, char in obj:
-	if char in ('"', "'"):
+	if in_esc_code:
+		in_esc_code = False
+		continue
+
+	if (char in ('"', "'")) and (not in_pyx):
 		val = strchecker(char)
-		if val == -1: continue
+		if (val == -1): continue
 
-		if char == '"':
+		if in_esc_code:
+			in_esc_code = False
+
+		elif char == '"':
 			in_double_quote_str = val
-			continue
 
-		in_single_quote_str = val
+		elif char == "'":
+			in_single_quote_str = val
 
-	if char == '\\':
-		if in_esc_code: continue
-		in_esc_code = 1
+	if (char == '\\') and (in_double_quote_str or in_single_quote_str):
+		if in_esc_code:
+			if not in_pyx: continue
+		else:
+			in_esc_code = 1
 
 	if char == '<' and not (in_double_quote_str or in_single_quote_str):
 		if not in_pyx:
@@ -85,12 +95,13 @@ for i, char in obj:
 
 	if in_pyx:
 		pyx_blocks[-1]+=char
+		continue
 
 documents: list[Element] = []
 
 for block in pyx_blocks:
 	parser = PYXParser()
-	parser.feed(block)
+	parser.parse(block)
 	documents.append(
 		parser.document
 	)

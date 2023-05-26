@@ -11,6 +11,10 @@ class PYXParser(HTMLParser):
 	def handle_starttag(self, tag: str, attrs: list[str]):
 		dictattrs = {}
 		for attr in attrs:
+			if attr[1] is None:
+				dictattrs[attr[0]] = '""'
+				continue
+
 			if attr[1].startswith('{') and attr[1].endswith('}'):
 				dictattrs[attr[0]] = attr[1].removeprefix('{').removesuffix('}')
 				continue
@@ -26,7 +30,7 @@ class PYXParser(HTMLParser):
 
 		self.current_node = element
 
-	def handle_endtag(self, tag: str):		
+	def handle_endtag(self, tag: str):	
 		if tag != self.current_tag:
 			raise ValueError(f"The tag '{self.current_tag}' was never closed!")
 
@@ -34,16 +38,11 @@ class PYXParser(HTMLParser):
 		# self.current_node is already set to parent
 		self.current_tag = self.current_node.tag
 
-	def parse(self, feed):
+	def parse(self, feed: str):
 		super().feed(feed)
 
-		if self.current_node is not self.document or self.current_tag is not None:
+		if (self.current_node is not self.document):
 			raise ValueError("A tag wasn't closed!")
 
 	def handle_data(self, data):
-		if data.startswith('{') and data.endswith('}'):
-			self.current_node.data = data.removeprefix('{').removesuffix('}')
-			return
-		
-		self.current_node.data = repr(data)
-		
+		self.current_node.data = 'f'+repr(data) # act like it is a fmt string
