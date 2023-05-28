@@ -1,4 +1,4 @@
-from pysite.tags import Element
+from ..tags import Element
 
 class PyCodeGenerator():
 	def __init__(self, document: Element):

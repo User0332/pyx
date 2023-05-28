@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pyx-pysite
-Version: 1.0.0
+Version: 1.0.2
 Summary: Pysite is a Python web framework, inspired by JSX. It uses Flask in the backend. Common commands for the `pysite` CLI are `new <projectname>` and `run`.
 Author-email: Carl Furtado <carlzfurtado@gmail.com>
 License: The MIT License (MIT)

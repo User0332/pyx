@@ -1,5 +1,5 @@
 from html.parser import HTMLParser
-from pysite.tags import Element
+from ..tags import Element
 
 class PYXParser(HTMLParser):
 	def __init__(self):

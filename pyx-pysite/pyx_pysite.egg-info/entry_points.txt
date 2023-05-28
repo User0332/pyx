@@ -1,2 +1,3 @@
 [console_scripts]
 pysite = pysite.__main__:main
+pyxc = pysite.pyx.pyxc:main

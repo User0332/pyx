@@ -3,6 +3,10 @@ pyproject.toml
 pysite/__init__.py
 pysite/__main__.py
 pysite/tags.py
+pysite/pyx/__init__.py
+pysite/pyx/generator.py
+pysite/pyx/pyxc.py
+pysite/pyx/xmlparser.py
 pyx_pysite.egg-info/PKG-INFO
 pyx_pysite.egg-info/SOURCES.txt
 pyx_pysite.egg-info/dependency_links.txt
